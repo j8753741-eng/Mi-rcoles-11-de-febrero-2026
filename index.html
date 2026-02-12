@@ -3,115 +3,178 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para El Amor De Mi Vida</title>
+<title>Nuestra Noche</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 body{
-    margin:0;
-    padding:0;
-    font-family:'Playfair Display', serif;
-    background: radial-gradient(circle at top, #1a0026, #000);
-    color:white;
-    overflow-x:hidden;
+margin:0;
+padding:0;
+background:black;
+font-family:'Playfair Display',serif;
+color:white;
+overflow-x:hidden;
 }
 
-/* Fondo estrellas */
+/* GALAXIA */
 canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:-1;
+position:fixed;
+top:0;
+left:0;
+z-index:-4;
 }
 
-/* Contenedor música */
-.music-box{
-    text-align:center;
-    padding:20px;
+/* OSCURECER */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:radial-gradient(circle,#1a0033,black);
+opacity:0;
+transition:2s;
+z-index:-3;
 }
 
-.music-btn{
-    background: linear-gradient(45deg,#ff4ecd,#a100ff);
-    border:none;
-    padding:15px 30px;
-    border-radius:50px;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    box-shadow:0 0 20px rgba(255,0,200,0.6);
-    transition:0.3s;
+/* BOTON */
+.music{
+text-align:center;
+margin-top:25px;
 }
 
-.music-btn:hover{
-    transform:scale(1.1);
-}
-
-/* Carta */
-.container{
-    display:flex;
-    justify-content:center;
-    padding:20px;
-}
-
-.carta{
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(25px);
-    border-radius:30px;
-    padding:50px 35px;
-    max-width:750px;
-    box-shadow:0 0 40px rgba(255,0,200,0.4);
-    animation:fadeIn 2s ease;
-}
-
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(40px);}
-    to{opacity:1; transform:translateY(0);}
-}
-
-h1{
-    text-align:center;
-    font-family:'Dancing Script', cursive;
-    font-size:42px;
-    color:#ff9dfc;
-    margin-bottom:30px;
-}
-
-p{
-    line-height:1.9;
-    font-size:18px;
-    margin-bottom:22px;
-}
-
-.final{
-    text-align:center;
-    margin-top:40px;
-    font-size:24px;
-    font-style:italic;
-    color:#ffd6ff;
-    animation:latido 2s infinite;
+.music button{
+background:linear-gradient(45deg,#ff4ecd,#a100ff);
+border:none;
+padding:18px 40px;
+border-radius:50px;
+color:white;
+font-size:18px;
+cursor:pointer;
+box-shadow:0 0 40px rgba(255,0,200,0.9);
+animation:latido 2s infinite;
 }
 
 @keyframes latido{
-    0%{transform:scale(1);}
-    50%{transform:scale(1.08);}
-    100%{transform:scale(1);}
+0%,100%{transform:scale(1);}
+50%{transform:scale(1.1);}
+}
+
+/* VIDEO */
+.video-box{
+display:none;
+margin:20px auto;
+width:90%;
+max-width:500px;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 0 40px rgba(255,0,200,0.7);
+}
+
+/* CARTA */
+.container{
+display:flex;
+justify-content:center;
+padding:20px;
+}
+
+.carta{
+background:rgba(255,255,255,0.07);
+backdrop-filter:blur(30px);
+border-radius:35px;
+padding:50px 25px;
+width:95%;
+max-width:700px;
+box-shadow:0 0 80px rgba(255,0,200,0.6);
+animation:respirar 5s infinite ease-in-out;
+min-height:300px;
+}
+
+@keyframes respirar{
+0%,100%{transform:scale(1);}
+50%{transform:scale(1.02);}
+}
+
+/* SECRETO */
+.secreto{
+opacity:0;
+margin-top:25px;
+text-align:center;
+font-size:20px;
+color:#ffb6ff;
+transition:2s;
+}
+
+/* CONTADOR */
+.contador{
+text-align:center;
+margin-top:15px;
+font-size:14px;
+opacity:0.8;
+}
+
+/* PETALOS */
+.petalo{
+position:fixed;
+top:-10px;
+font-size:20px;
+animation:caer linear infinite;
+}
+
+@keyframes caer{
+to{transform:translateY(110vh) rotate(360deg);}
+}
+
+/* CORAZONES */
+.corazon{
+position:fixed;
+color:#ff4ecd;
+animation:flotar 8s linear infinite;
+}
+
+@keyframes flotar{
+0%{transform:translateY(100vh);opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* BRILLO */
+.spark{
+position:fixed;
+width:8px;
+height:8px;
+background:white;
+border-radius:50%;
+box-shadow:0 0 20px white,0 0 40px pink;
+pointer-events:none;
+animation:fade 1s forwards;
+}
+
+@keyframes fade{
+to{opacity:0;transform:scale(4);}
 }
 </style>
 </head>
 <body>
 
-<canvas id="stars"></canvas>
+<canvas id="galaxia"></canvas>
+<div class="overlay" id="overlay"></div>
 
-<div class="music-box">
-    <button class="music-btn" onclick="activarMusica()">🎵 Activar la Canción</button>
+<div class="music">
+<button onclick="activarMusica()">🎵 Presiona Aquí</button>
 </div>
 
-<div id="player" style="display:none;"></div>
+<div class="video-box" id="videoBox">
+<iframe width="100%" height="250"
+src="https://www.youtube.com/embed/41VBV-GI7Ek?autoplay=1"
+frameborder="0"
+allow="autoplay; encrypted-media"
+allowfullscreen></iframe>
+</div>
 
 <div class="container">
 <div class="carta">
-<h1><strong>Mi amor infinito, mi alma gemela, mi milagro hecho persona,</strong></h1>
+<strong>Mi amor infinito, mi alma gemela, mi milagro hecho persona,</strong>
   <p>En esta noche del miércoles 11 de febrero de 2026, mientras el cielo se viste de estrellas como si quisiera recordarme lo inmenso que es el universo, no puedo evitar pensar que, aun con toda esa inmensidad, lo más grande, lo más hermoso y lo más perfecto que existe para mí… eres tú. Mientras el mundo descansa lentamente y el silencio parece abrazar cada rincón, mi corazón despierta con una intensidad indescriptible, porque cada latido pronuncia tu nombre como si fuera una oración eterna que mi alma repite sin descanso.
 Hay noches en las que uno mira el cielo buscando respuestas, buscando paz, buscando señales… y yo, cuando miro el cielo, no busco estrellas, no busco la luna, no busco constelaciones. Yo te busco a ti. Porque desde que llegaste a mi vida, entendí que el verdadero universo no está sobre nosotros, sino en la forma en que tu existencia iluminó cada parte de mi ser.
 Si pudiera describir lo que siento por ti con la grandeza del cosmos, diría que eres el sol que le da vida a cada rincón de mi corazón, la luna que calma mis noches, las estrellas que guían mis pensamientos cuando me pierdo, el cielo entero donde mi alma aprendió a volar sin miedo. Eres esa luz celestial que llegó a mi vida sin pedir permiso, pero que transformó mi mundo en un lugar lleno de esperanza, ternura y amor infinito.
@@ -135,68 +198,101 @@ Te amo con la profundidad del cielo, con la eternidad de las estrellas, con la p
 Buenas noches, mi amor celestial, mi destino, mi eternidad, mi todo. Que al cerrar los ojos sientas que mi amor te envuelve como un abrazo infinito que nunca dejará de protegerte.
 Con todo mi corazón, con toda mi alma, con todo mi amor… hoy, mañana, y más allá del tiempo y del universo.</p>
 
-
-<div class="final">
-<span class="glow"><strong>Desde que llegaste a mi vida, todo tiene más sentido, más color y más felicidad… gracias por existir y por elegirme cada día mi niña linda. ❤️</strong></span>
-</div>
-
 </div>
 </div>
 
-<script src="https://www.youtube.com/iframe_api"></script>
+<div class="secreto" id="secreto">
+<strong>Siempre serás mi infinito favorito.</strong>
+    <p><span class="glow"><strong>Desde que llegaste a mi vida, todo tiene más sentido, más color y más felicidad… gracias por existir y por elegirme cada día mi niña linda. ❤️</strong></span></p>
+</div>
+
+<div class="contador" id="contador">9:37 pm</div>
 
 <script>
-let player;
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        videoId: '41VBV-GI7Ek',
-        playerVars: {
-            'autoplay': 0,
-            'controls': 0,
-            'loop': 1,
-            'playlist': '41VBV-GI7Ek'
-        }
-    });
-}
-
 function activarMusica(){
-    player.playVideo();
+document.getElementById("overlay").style.opacity="0.8";
+document.getElementById("videoBox").style.display="block";
+document.getElementById("secreto").style.opacity="1";
 }
 </script>
 
 <script>
-/* Estrellas */
-const canvas = document.getElementById("stars");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let stars = [];
-for(let i=0;i<200;i++){
-    stars.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        radius:Math.random()*1.5,
-        speed:Math.random()*0.5
-    });
+/* GALAXIA */
+const canvas=document.getElementById("galaxia");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let stars=[];
+for(let i=0;i<400;i++){
+stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.5,s:Math.random()*0.6});
 }
-
-function drawStars(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="white";
-    stars.forEach(star=>{
-        ctx.beginPath();
-        ctx.arc(star.x,star.y,star.radius,0,Math.PI*2);
-        ctx.fill();
-        star.y+=star.speed;
-        if(star.y>canvas.height) star.y=0;
-    });
-    requestAnimationFrame(drawStars);
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="white";
+stars.forEach(star=>{
+ctx.beginPath();
+ctx.arc(star.x,star.y,star.r,0,Math.PI*2);
+ctx.fill();
+star.y+=star.s;
+if(star.y>canvas.height)star.y=0;
+});
+requestAnimationFrame(draw);
 }
-drawStars();
+draw();
+
+/* ESTRELLA FUGAZ */
+setInterval(()=>{
+ctx.beginPath();
+ctx.moveTo(Math.random()*canvas.width,0);
+ctx.lineTo(Math.random()*canvas.width+100,100);
+ctx.strokeStyle="white";
+ctx.stroke();
+},5000);
+
+/* PETALOS */
+function crearPetalo(){
+const p=document.createElement("div");
+p.classList.add("petalo");
+p.innerHTML="🌸";
+p.style.left=Math.random()*100+"vw";
+p.style.animationDuration=(Math.random()*7+7)+"s";
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),14000);
+}
+setInterval(crearPetalo,800);
+
+/* CORAZONES */
+function crearCorazon(){
+const c=document.createElement("div");
+c.classList.add("corazon");
+c.innerHTML="❤";
+c.style.left=Math.random()*100+"vw";
+c.style.fontSize=(Math.random()*20+10)+"px";
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),8000);
+}
+setInterval(crearCorazon,2000);
+
+/* BRILLO */
+document.addEventListener("click",e=>{
+const s=document.createElement("div");
+s.classList.add("spark");
+s.style.left=e.clientX+"px";
+s.style.top=e.clientY+"px";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),1000);
+});
+
+/* CONTADOR */
+const inicio=new Date("2026-02-11T00:00:00");
+setInterval(()=>{
+const ahora=new Date();
+const diff=ahora-inicio;
+const dias=Math.floor(diff/(1000*60*60*24));
+document.getElementById("contador").innerText=
+"Amándonos desde hace "+dias+" días ❤️";
+},1000);
 </script>
 
 </body>
-</html>
+</html> 
