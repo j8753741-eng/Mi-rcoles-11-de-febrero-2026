@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -112,6 +112,16 @@ filter:blur(20px);
 opacity:0.7;
 }
 
+/* CONTADOR (ahora arriba y más visible) */
+.contador{
+text-align:center;
+margin-bottom:35px;
+font-size:22px;
+font-weight:700;
+color:#ffb6ff;
+text-shadow:0 0 15px #ff00cc;
+}
+
 /* SECRETO */
 .secreto{
 opacity:0;
@@ -122,15 +132,7 @@ color:#ffb6ff;
 transition:3s;
 }
 
-/* CONTADOR */
-.contador{
-text-align:center;
-margin-top:15px;
-font-size:15px;
-opacity:0.85;
-}
-
-/* PETALOS CAPA 1 */
+/* PETALOS */
 .petalo{
 position:fixed;
 top:-10px;
@@ -179,8 +181,12 @@ allowfullscreen></iframe>
 
 <div class="container">
 <div class="carta">
+
+<!-- 🔥 CONTADOR AHORA ARRIBA -->
+<div class="contador" id="contador"></div>
+
 <span class="glow"><strong>Mi amor infinito, mi alma gemela, mi milagro hecho persona,</strong></span>
-  <p>En esta noche del miércoles 11 de febrero de 2026, mientras el cielo se viste de estrellas como si quisiera recordarme lo inmenso que es el universo, no puedo evitar pensar que, aun con toda esa inmensidad, lo más grande, lo más hermoso y lo más perfecto que existe para mí… eres tú. Mientras el mundo descansa lentamente y el silencio parece abrazar cada rincón, mi corazón despierta con una intensidad indescriptible, porque cada latido pronuncia tu nombre como si fuera una oración eterna que mi alma repite sin descanso.
+ <P>En esta noche del miércoles 11 de febrero de 2026, mientras el cielo se viste de estrellas como si quisiera recordarme lo inmenso que es el universo, no puedo evitar pensar que, aun con toda esa inmensidad, lo más grande, lo más hermoso y lo más perfecto que existe para mí… eres tú. Mientras el mundo descansa lentamente y el silencio parece abrazar cada rincón, mi corazón despierta con una intensidad indescriptible, porque cada latido pronuncia tu nombre como si fuera una oración eterna que mi alma repite sin descanso.
 Hay nEsta noche del miércoles 11 de febrero de 2026 parece haberse creado solo para que mi corazón se siente frente a la inmensidad de lo que siento por ti y deje que cada emoción salga sin miedo, sin límites, sin barreras. La noche está en silencio, pero dentro de mí existe un océano de pensamientos que pronuncian tu nombre una y otra vez, como si cada latido de mi corazón fuera un susurro que repite que te ama con una intensidad que no conoce final.
 
 A veces cierro los ojos y trato de imaginar el momento exacto en el que nuestras almas decidieron encontrarse. No hablo solo del día en que nos conocimos, sino de algo mucho más profundo, algo que siento como si hubiera nacido antes incluso de que nuestras vidas tomaran forma. Porque cuando estoy contigo, siento una conexión que no parece pertenecer solo a este mundo. Es como si nuestras almas se hubieran buscado a través del tiempo, atravesando universos, atravesando vidas, atravesando historias desconocidas, hasta encontrarse finalmente en este instante de nuestra existencia.
@@ -225,97 +231,30 @@ Esta noche quiero que sientas que cada palabra de esta carta es un beso que viaj
 
 Buenas noches, mi amor, mi vida, mi sueño eterno, mi historia más hermosa, mi destino, mi milagro, mi universo entero. Que al cerrar los ojos sientas mi amor rodeándote como un cielo lleno de estrellas que jamás dejarán de brillar para ti.
 
-Con todo mi corazón, con toda mi alma, con todo mi amor… hoy, mañana, siempre, y más allá de cualquier límite que pueda existir.</p>
-  <p><strong>JUAN KALETH MENDOZA PRIMERA 💜</strong></p>
+Con todo mi corazón, con toda mi alma, con todo mi amor… hoy, mañana, siempre, y más allá de cualquier límite que pueda existir.
+</p>
+
+<p><strong>JUAN KALETH MENDOZA PRIMERA 💜</strong></p>
+
 </div>
 </div>
 
 <div class="secreto" id="secreto">
 Desde el 17•10•2025 comenzó la mejor historia de mi vida… y jamás quiero que termine.
-  <p><strong>Siempre serás mi infinito favorito preciosa.</p></strong>
-  <span class="glow"><strong>Desde que llegaste a mi vida, todo tiene más sentido, más color y más felicidad… gracias por existir y por elegirme cada día mi niña linda. ❤️</strong></span>
+<p><strong>Siempre serás mi infinito favorito preciosa.</strong></p>
+<span class="glow"><strong>Desde que llegaste a mi vida, todo tiene más sentido, más color y más felicidad… gracias por existir y por elegirme cada día mi niña linda. ❤️</strong></span>
 </div>
-
-<div class="contador" id="contador"></div>
 
 <script>
 function activarMusica(){
 document.getElementById("overlay").style.opacity="0.85";
 document.getElementById("videoBox").style.display="block";
 document.getElementById("secreto").style.opacity="1";
-
-/* EXPLOSION LUZ */
-for(let i=0;i<25;i++){
-const s=document.createElement("div");
-s.classList.add("spark");
-s.style.left=(window.innerWidth/2)+"px";
-s.style.top="150px";
-document.body.appendChild(s);
-setTimeout(()=>s.remove(),1000);
 }
-}
-</script>
-
-<script>
-/* GALAXIA */
-const canvas=document.getElementById("galaxia");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let stars=[];
-for(let i=0;i<500;i++){
-stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.5,s:Math.random()*0.5});
-}
-
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="white";
-stars.forEach(star=>{
-ctx.beginPath();
-ctx.arc(star.x,star.y,star.r,0,Math.PI*2);
-ctx.fill();
-star.y+=star.s;
-if(star.y>canvas.height)star.y=0;
-});
-requestAnimationFrame(draw);
-}
-draw();
-
-/* ESTRELLA FUGAZ */
-setInterval(()=>{
-ctx.beginPath();
-ctx.moveTo(Math.random()*canvas.width,0);
-ctx.lineTo(Math.random()*canvas.width+120,120);
-ctx.strokeStyle="white";
-ctx.lineWidth=2;
-ctx.stroke();
-},4000);
-
-/* PETALOS */
-function crearPetalo(){
-const p=document.createElement("div");
-p.classList.add("petalo");
-p.innerHTML="🌸";
-p.style.left=Math.random()*100+"vw";
-p.style.animationDuration=(Math.random()*8+8)+"s";
-document.body.appendChild(p);
-setTimeout(()=>p.remove(),16000);
-}
-setInterval(crearPetalo,900);
-
-/* BRILLO AL TOCAR */
-document.addEventListener("click",e=>{
-const s=document.createElement("div");
-s.classList.add("spark");
-s.style.left=e.clientX+"px";
-s.style.top=e.clientY+"px";
-document.body.appendChild(s);
-setTimeout(()=>s.remove(),1000);
-});
 
 /* CONTADOR DESDE 17 OCT 2025 */
 const inicio=new Date("2025-10-17T00:00:00");
+
 setInterval(()=>{
 const ahora=new Date();
 const diff=ahora-inicio;
@@ -323,11 +262,13 @@ const diff=ahora-inicio;
 const dias=Math.floor(diff/(1000*60*60*24));
 const horas=Math.floor((diff/(1000*60*60))%24);
 const minutos=Math.floor((diff/(1000*60))%60);
+const segundos=Math.floor((diff/1000)%60);
 
 document.getElementById("contador").innerText=
-"Juntos desde hace "+dias+" días, "+horas+" horas y "+minutos+" minutos ❤️";
+"Juntos desde hace "+dias+" días, "+horas+" horas, "+minutos+" minutos y "+segundos+" segundos ❤️";
+
 },1000);
 </script>
 
 </body>
-</html> 
+</html>
