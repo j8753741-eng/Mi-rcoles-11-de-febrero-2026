@@ -3,103 +3,113 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi Carta de Amor</title>
+<title>Para El Amor De Mi Vida</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 
 <style>
 body{
     margin:0;
     padding:0;
-    font-family: 'Georgia', serif;
-    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-    color: #fff;
+    font-family:'Playfair Display', serif;
+    background: radial-gradient(circle at top, #1a0026, #000);
+    color:white;
     overflow-x:hidden;
 }
 
-/* Video arriba */
-.video-container{
-    position: relative;
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
+/* Fondo estrellas */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
 }
 
-.video-container iframe{
-    width: 100%;
-    height: 100%;
+/* Contenedor música */
+.music-box{
+    text-align:center;
+    padding:20px;
+}
+
+.music-btn{
+    background: linear-gradient(45deg,#ff4ecd,#a100ff);
+    border:none;
+    padding:15px 30px;
+    border-radius:50px;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    box-shadow:0 0 20px rgba(255,0,200,0.6);
+    transition:0.3s;
+}
+
+.music-btn:hover{
+    transform:scale(1.1);
 }
 
 /* Carta */
-.carta{
-    max-width: 800px;
-    margin: -50px auto 50px auto;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(15px);
-    padding: 40px;
-    border-radius: 25px;
-    box-shadow: 0 0 30px rgba(255,105,180,0.4);
-    animation: aparecer 2s ease;
+.container{
+    display:flex;
+    justify-content:center;
+    padding:20px;
 }
 
-@keyframes aparecer{
-    from{opacity:0; transform: translateY(30px);}
-    to{opacity:1; transform: translateY(0);}
+.carta{
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(25px);
+    border-radius:30px;
+    padding:50px 35px;
+    max-width:750px;
+    box-shadow:0 0 40px rgba(255,0,200,0.4);
+    animation:fadeIn 2s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(40px);}
+    to{opacity:1; transform:translateY(0);}
 }
 
 h1{
     text-align:center;
-    font-size: 32px;
-    margin-bottom: 30px;
-    color: #ffb6f9;
+    font-family:'Dancing Script', cursive;
+    font-size:42px;
+    color:#ff9dfc;
+    margin-bottom:30px;
 }
 
 p{
-    line-height: 1.8;
-    font-size: 18px;
-    margin-bottom: 20px;
+    line-height:1.9;
+    font-size:18px;
+    margin-bottom:22px;
 }
 
-.frase-final{
+.final{
     text-align:center;
-    font-size: 22px;
-    margin-top: 40px;
+    margin-top:40px;
+    font-size:24px;
+    font-style:italic;
     color:#ffd6ff;
-    font-style: italic;
-    animation: latido 2s infinite;
+    animation:latido 2s infinite;
 }
 
 @keyframes latido{
     0%{transform:scale(1);}
-    50%{transform:scale(1.05);}
+    50%{transform:scale(1.08);}
     100%{transform:scale(1);}
-}
-
-/* Corazones flotando */
-.corazon{
-    position: fixed;
-    color: pink;
-    animation: flotar 6s linear infinite;
-    font-size:20px;
-}
-
-@keyframes flotar{
-    0%{transform: translateY(100vh); opacity:1;}
-    100%{transform: translateY(-10vh); opacity:0;}
 }
 </style>
 </head>
-
 <body>
 
-<!-- Música -->
-<div class="video-container">
-<iframe 
-src="https://www.youtube.com/embed/41VBV-GI7Ek?autoplay=1&mute=1&loop=1&playlist=41VBV-GI7Ek" 
-frameborder="0" 
-allow="autoplay">
-</iframe>
+<canvas id="stars"></canvas>
+
+<div class="music-box">
+    <button class="music-btn" onclick="activarMusica()">🎵 Activar Nuestra Canción</button>
 </div>
 
-<!-- Carta -->
+<div id="player" style="display:none;"></div>
+
+<div class="container">
 <div class="carta">
 <h1><strong>Mi amor infinito, mi alma gemela, mi milagro hecho persona,</strong></h1>
   <p>En esta noche del miércoles 11 de febrero de 2026, mientras el cielo se viste de estrellas como si quisiera recordarme lo inmenso que es el universo, no puedo evitar pensar que, aun con toda esa inmensidad, lo más grande, lo más hermoso y lo más perfecto que existe para mí… eres tú. Mientras el mundo descansa lentamente y el silencio parece abrazar cada rincón, mi corazón despierta con una intensidad indescriptible, porque cada latido pronuncia tu nombre como si fuera una oración eterna que mi alma repite sin descanso.
@@ -126,26 +136,67 @@ Buenas noches, mi amor celestial, mi destino, mi eternidad, mi todo. Que al cerr
 Con todo mi corazón, con toda mi alma, con todo mi amor… hoy, mañana, y más allá del tiempo y del universo.</p>
 
 
-<div class="frase-final">
+<div class="final">
 <span class="glow"><strong>Desde que llegaste a mi vida, todo tiene más sentido, más color y más felicidad… gracias por existir y por elegirme cada día mi niña linda. ❤️</strong></span>
 </div>
 
 </div>
+</div>
 
-<!-- Corazones -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
 <script>
-function crearCorazon(){
-    const corazon = document.createElement("div");
-    corazon.classList.add("corazon");
-    corazon.innerHTML="❤";
-    corazon.style.left = Math.random()*100 + "vw";
-    corazon.style.fontSize = (Math.random()*20+10)+"px";
-    corazon.style.animationDuration = (Math.random()*3+3)+"s";
-    document.body.appendChild(corazon);
-    setTimeout(()=>{corazon.remove();},6000);
+let player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: '41VBV-GI7Ek',
+        playerVars: {
+            'autoplay': 0,
+            'controls': 0,
+            'loop': 1,
+            'playlist': '41VBV-GI7Ek'
+        }
+    });
 }
-setInterval(crearCorazon,500);
+
+function activarMusica(){
+    player.playVideo();
+}
+</script>
+
+<script>
+/* Estrellas */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+for(let i=0;i<200;i++){
+    stars.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        radius:Math.random()*1.5,
+        speed:Math.random()*0.5
+    });
+}
+
+function drawStars(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="white";
+    stars.forEach(star=>{
+        ctx.beginPath();
+        ctx.arc(star.x,star.y,star.radius,0,Math.PI*2);
+        ctx.fill();
+        star.y+=star.speed;
+        if(star.y>canvas.height) star.y=0;
+    });
+    requestAnimationFrame(drawStars);
+}
+drawStars();
 </script>
 
 </body>
-  </html>
+</html>
